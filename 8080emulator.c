@@ -70,7 +70,11 @@ int Emulate8080Op(State8080* state)
             break;
         case 0x0f: UnimplementedInstruction(state); break;
         case 0x10: UnimplementedInstruction(state); break;
-        case 0x11: UnimplementedInstruction(state); break;
+        case 0x11:          //LXI D,D16 
+            state->e = opcode[1];
+            state->d = opcode[2];
+            state->pc += 2;
+            break;
         case 0x12: UnimplementedInstruction(state); break;
         case 0x13: UnimplementedInstruction(state); break;
         case 0x14: UnimplementedInstruction(state); break;
@@ -92,7 +96,11 @@ int Emulate8080Op(State8080* state)
             break;
         case 0x1f: UnimplementedInstruction(state); break;
         case 0x20: UnimplementedInstruction(state); break;
-        case 0x21: UnimplementedInstruction(state); break;
+        case 0x21:          //LXI H,D16
+            state->l = opcode[1];
+            state->h = opcode[2];
+            state->pc += 2;
+            break;
         case 0x22: UnimplementedInstruction(state); break;
         case 0x23: UnimplementedInstruction(state); break;
         case 0x24: UnimplementedInstruction(state); break;
@@ -114,7 +122,11 @@ int Emulate8080Op(State8080* state)
             break;
         case 0x2f: UnimplementedInstruction(state); break;
         case 0x30: UnimplementedInstruction(state); break;
-        case 0x31: UnimplementedInstruction(state); break;
+        case 0x31:          //LXI SP,D16
+            uint16_t offset = (opcode[2] << 8) | (opcode[1]);
+            state->sp = offset;
+            state->pc += 2;
+            break;
         case 0x32: UnimplementedInstruction(state); break;
         case 0x33: UnimplementedInstruction(state); break;
         case 0x34: UnimplementedInstruction(state); break;
